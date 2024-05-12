@@ -6,39 +6,38 @@ import { FeedWrapper } from '@/components/feed-wrapper';
 import { StickyWrapper } from '@/components/sticky-wrapper';
 import { UserProgress } from '@/components/user-progress';
 import {
-  // getCourseProgress,
-//   getLessonPercentage,
-//   getUnits,
+  getCourseProgress,
+  getLessonPercentage,
+  getUnits,
   getUserProgress,
-//   getUserSubscription,
-} from "@/db/queries";
+  getUserSubscription,
+} from '@/db/queries';
 
 import { Header } from './header';
-// import { Unit } from "./unit";
+import { Unit } from './unit';
 
 const LearnPage = async () => {
   const userProgressData = getUserProgress();
-  // const courseProgressData = getCourseProgress();
-  // const lessonPercentageData = getLessonPercentage();
-  // const unitsData = getUnits();
+  const courseProgressData = getCourseProgress();
+  const lessonPercentageData = getLessonPercentage();
+  const unitsData = getUnits();
   // const userSubscriptionData = getUserSubscription();
 
   const [
     userProgress,
-  //   units,
-    // courseProgress,
-  //   lessonPercentage,
-  //   userSubscription,
+    units,
+    courseProgress,
+    lessonPercentage,
+    //   userSubscription,
   ] = await Promise.all([
     userProgressData,
-  //   unitsData,
-    // courseProgressData,
-  //   lessonPercentageData,
-  //   userSubscriptionData,
+    unitsData,
+    courseProgressData,
+    lessonPercentageData,
+    //   userSubscriptionData,
   ]);
-// /!courseProgress || 
-  if (!userProgress || !userProgress.activeCourse)
-    redirect("/courses");
+
+  if (!courseProgress || !userProgress || !userProgress.activeCourse) redirect('/courses');
 
   // const isPro = !!userSubscription?.isActive;
 
@@ -58,8 +57,8 @@ const LearnPage = async () => {
       </StickyWrapper>
       <FeedWrapper>
         <Header title={userProgress.activeCourse.title} />
-        {/* {units.map((unit) => (
-          <div key={unit.id} className="mb-10">
+        {units.map((unit) => (
+          <div key={unit.id} className='mb-10'>
             <Unit
               id={unit.id}
               order={unit.order}
@@ -70,7 +69,7 @@ const LearnPage = async () => {
               activeLessonPercentage={lessonPercentage}
             />
           </div>
-        ))} */}
+        ))}
       </FeedWrapper>
     </div>
   );
